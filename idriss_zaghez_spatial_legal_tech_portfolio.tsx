@@ -520,6 +520,10 @@ const IdrissPortraitArtwork = ({ customPhotoUrl, isMonochrome }) => {
 // 6. IdrissClaw (MCP & Multi-Agent Legal Orchestrator)
 // ============================================================================
 const WORKS_FRAMES = [
+  // ==========================================================================
+  // LEFT WALL — nearest first. Array order IS corridor depth order, so the most
+  // detailed frames sit closest and the lightest ones recede.
+  // ==========================================================================
   {
     id: 'all-hero',
     label: 'Algeria Law Library / المكتبة القانونية الجزائرية',
@@ -537,6 +541,100 @@ const WORKS_FRAMES = [
     linkText: 'algerialawlibrary.com'
   },
   {
+    id: 'all-jora',
+    label: 'Algeria Law Library / الاجتهاد القضائي',
+    shortLabel: 'Algeria Law Library / JORA Search',
+    wall: 'left',
+    url: ALGERIA_LAW_URL,
+    linkText: 'algerialawlibrary.com',
+    mini: true,
+    conf: {
+      kind: 'results',
+      rtl: true,
+      accent: '#185434',
+      title: 'الاجتهاد القضائي — المحكمة العليا ومجلس الدولة',
+      badge: '1.595 قرار',
+      heading: 'نتائج البحث: الإعذار في فسخ العقد',
+      rows: [
+        { t: 'قرار رقم 0894120 — الغرفة المدنية', s: 'المحكمة العليا • 2023', tag: 'مطابق' },
+        { t: 'قرار رقم 0741588 — الغرفة العقارية', s: 'المحكمة العليا • 2021', tag: 'مرتبط' },
+        { t: 'قرار رقم 0912004 — مجلس الدولة', s: 'مجلس الدولة • 2022', tag: 'مرتبط' },
+        { t: 'قرار رقم 0662331 — الغرفة التجارية', s: 'المحكمة العليا • 2019', tag: 'أساس' }
+      ]
+    }
+  },
+  {
+    id: 'all-domains',
+    label: 'Algeria Law Library / المجالات القانونية',
+    shortLabel: 'Algeria Law Library / Legal Domains',
+    wall: 'left',
+    url: ALGERIA_LAW_URL,
+    linkText: 'algerialawlibrary.com',
+    mini: true,
+    conf: {
+      kind: 'domains',
+      rtl: true,
+      accent: '#185434',
+      title: 'تصفّح النصوص حسب المجال القانوني',
+      badge: '20 مجالاً',
+      tiles: [
+        'القانون المدني',
+        'القانون التجاري',
+        'القانون الجنائي',
+        'قانون الأسرة',
+        'قانون العمل',
+        'القانون الإداري',
+        'القانون العقاري',
+        'الضرائب',
+        'التأمين'
+      ]
+    }
+  },
+  {
+    id: 'all-article',
+    label: 'Algeria Law Library / المادة 119',
+    shortLabel: 'Algeria Law Library / Article View',
+    wall: 'left',
+    url: ALGERIA_LAW_URL,
+    linkText: 'algerialawlibrary.com',
+    mini: true,
+    conf: {
+      kind: 'article',
+      rtl: true,
+      accent: '#185434',
+      title: 'القانون المدني — الباب الرابع: الالتزامات',
+      badge: 'مادة 119',
+      articleNo: 'المادة 119',
+      lines: ['100%', '93%', '97%', '76%', '89%', '58%']
+    }
+  },
+  {
+    id: 'all-pricing',
+    label: 'Algeria Law Library / الأسعار والاشتراكات',
+    shortLabel: 'Algeria Law Library / Pricing',
+    wall: 'left',
+    url: ALGERIA_LAW_URL,
+    linkText: 'algerialawlibrary.com',
+    mini: true,
+    conf: {
+      kind: 'tiers',
+      rtl: true,
+      accent: '#185434',
+      title: 'الأسعار والاشتراكات',
+      badge: '3 خطط',
+      tiers: [
+        { name: 'طالب', price: '0', feats: ['بحث أساسي', '5 استعلامات يومياً'], cta: 'ابدأ مجاناً' },
+        {
+          name: 'محامٍ',
+          price: '2.400 دج',
+          feats: ['كل النصوص والاجتهاد', 'مساعد ذكي بلا حدود', 'تصدير PDF'],
+          cta: 'اشترك الآن'
+        },
+        { name: 'مكتب', price: '9.600 دج', feats: ['حتى 10 مستخدمين', 'واجهة API', 'دعم مخصص'], cta: 'تواصل معنا' }
+      ]
+    }
+  },
+  {
     id: 'pdf-auth',
     label: 'PDF Lawyer / محامي PDF v1.0.1',
     shortLabel: 'محامي PDF / Offline Suite',
@@ -545,13 +643,33 @@ const WORKS_FRAMES = [
     linkText: 'محامي PDF v1.0.1'
   },
   {
-    id: 'pdf-tools',
-    label: 'PDF Lawyer PRO / 20 أداة محلية للعمل القانوني',
-    shortLabel: 'محامي PDF / Tools Grid',
-    wall: 'right',
+    id: 'pdf-compress',
+    label: 'PDF Lawyer / ضغط PDF',
+    shortLabel: 'محامي PDF / Compress',
+    wall: 'left',
     url: LINKEDIN_URL,
-    linkText: 'محامي PDF PRO'
+    linkText: 'محامي PDF',
+    mini: true,
+    conf: {
+      kind: 'workspace',
+      rtl: true,
+      dark: true,
+      accent: '#2E8B62',
+      title: 'محامي PDF — ضغط',
+      badge: 'محلي 100%',
+      dropLabel: 'أفلِت ملف PDF هنا',
+      dropHint: 'لا يُرفع أي ملف إلى الإنترنت',
+      metrics: [
+        { v: '82%', k: 'نسبة الضغط' },
+        { v: '1.4 MB', k: 'بعد الضغط' }
+      ],
+      action: 'اضغط'
+    }
   },
+
+  // ==========================================================================
+  // RIGHT WALL — nearest first.
+  // ==========================================================================
   {
     id: 'idrissclaw-os',
     label: 'IdrissClaw / The AI Agent OS',
@@ -567,6 +685,124 @@ const WORKS_FRAMES = [
     wall: 'right',
     url: LINKEDIN_URL,
     linkText: 'IdrissClaw MCP'
+  },
+  {
+    id: 'claw-agents',
+    label: 'IdrissClaw / Agent Roster',
+    shortLabel: 'IdrissClaw / Agents',
+    wall: 'right',
+    url: LINKEDIN_URL,
+    linkText: 'IdrissClaw Agents',
+    mini: true,
+    conf: {
+      kind: 'agents',
+      accent: '#E02E16',
+      title: 'IdrissClaw — Active Agents',
+      badge: '4 ONLINE',
+      rows: [
+        { t: 'Research Agent', s: 'Browsing • algerialawlibrary.com', tag: 'ONLINE' },
+        { t: 'Legal Assistant', s: 'RAG • 30,243 Algerian law articles', tag: 'ONLINE' },
+        { t: 'Coding Agent', s: 'Editing • ~/projects/pdf-lawyer', tag: 'ACTIVE' },
+        { t: 'Automation Agent', s: 'MCP • 3 local tools connected', tag: 'READY' }
+      ]
+    }
+  },
+  {
+    id: 'claw-chat',
+    label: 'IdrissClaw / Chat',
+    shortLabel: 'IdrissClaw / Chat',
+    wall: 'right',
+    url: LINKEDIN_URL,
+    linkText: 'IdrissClaw Chat',
+    mini: true,
+    conf: {
+      kind: 'chat',
+      accent: '#E02E16',
+      title: 'IdrissClaw — Chat',
+      badge: 'GPT-4o',
+      bubbles: [
+        { t: 'Summarise Article 119 of the Algerian Civil Code.', me: true },
+        { t: 'Article 119 requires formal notice before rescinding a bilateral contract.' },
+        { t: 'Pull the matching Supreme Court rulings.', me: true },
+        { t: 'Found 4 rulings — highest relevance 0894120 (Civil Chamber, 2023).' }
+      ]
+    }
+  },
+  {
+    id: 'claw-log',
+    label: 'IdrissClaw / Execution Log',
+    shortLabel: 'IdrissClaw / MCP Log',
+    wall: 'right',
+    url: LINKEDIN_URL,
+    linkText: 'IdrissClaw Log',
+    mini: true,
+    conf: {
+      kind: 'log',
+      accent: '#2E8B62',
+      title: 'MCP Execution Log',
+      badge: 'LOCAL',
+      lines: [
+        'Research Agent → GET https://algerialawlibrary.com/api/jora',
+        'Legal Assistant → 4 Supreme Court rulings retrieved',
+        'Automation Agent → محامي PDF offline redaction tool invoked',
+        '✓ Synthesis complete. Zero cloud data leakage.'
+      ]
+    }
+  },
+  {
+    id: 'pdf-tools',
+    label: 'PDF Lawyer PRO / 20 أداة محلية للعمل القانوني',
+    shortLabel: 'محامي PDF / Tools Grid',
+    wall: 'right',
+    url: LINKEDIN_URL,
+    linkText: 'محامي PDF PRO'
+  },
+  {
+    id: 'pdf-redact',
+    label: 'PDF Lawyer / إخفاء المعلومات',
+    shortLabel: 'محامي PDF / Redact',
+    wall: 'right',
+    url: LINKEDIN_URL,
+    linkText: 'محامي PDF',
+    mini: true,
+    conf: {
+      kind: 'workspace',
+      rtl: true,
+      dark: true,
+      accent: '#B91C1C',
+      title: 'محامي PDF — إخفاء',
+      badge: 'حذف فعلي',
+      dropLabel: 'حدّد النص المراد حذفه',
+      dropHint: 'تُحذف البكسلات والنص من الأسفل',
+      metrics: [
+        { v: '12', k: 'موضع محذوف' },
+        { v: '0', k: 'قابل للاسترجاع' }
+      ],
+      action: 'امحُ'
+    }
+  },
+  {
+    id: 'pdf-organize',
+    label: 'PDF Lawyer / دمج وتقسيم',
+    shortLabel: 'محامي PDF / Merge & Split',
+    wall: 'right',
+    url: LINKEDIN_URL,
+    linkText: 'محامي PDF',
+    mini: true,
+    conf: {
+      kind: 'results',
+      rtl: true,
+      dark: true,
+      accent: '#2E8B62',
+      title: 'محامي PDF — تنظيم',
+      badge: '8 ملفات',
+      rows: [
+        { t: 'عقد-الإيجار.pdf', s: '24 صفحة • 2.1 MB', tag: 'دمج' },
+        { t: 'مذكرة-دفاع.pdf', s: '8 صفحات • 640 KB', tag: 'تقسيم' },
+        { t: 'حكم-المحكمة.pdf', s: '3 صفحات • 210 KB', tag: 'تدوير' },
+        { t: 'محضر-جلسة.pdf', s: '11 صفحة • 1.2 MB', tag: 'ترتيب' }
+      ]
+    }
   }
 ];
 
@@ -662,7 +898,225 @@ const MultiplayerCursor = ({ x, y, label, color, isOrangeClient = false }) => {
 };
 
 // ============================================================================
-// PIXEL-FAITHFUL RENDERER FOR EACH OF THE 6 FRAMES (3 EXCLUSIVE PROJECTS)
+// MINI SCREEN ARCHETYPES
+//
+// The corridor now carries 16 frames. Only the nearest few are ever read
+// closely, so instead of hand-building ten more bespoke mockups, these
+// parameterised screens give the tunnel real density while still looking like
+// genuine product UI when a frame is stepped up to. Each new project screen is
+// a small config object rather than another 80 lines of bespoke JSX.
+// ============================================================================
+const MiniScreen = ({ conf }) => {
+  const {
+    kind = 'results',
+    accent = '#185434',
+    dark = false,
+    rtl = false,
+    title = '',
+    badge = '',
+    heading = '',
+    rows = [],
+    tiles = [],
+    tiers = [],
+    lines = [],
+    bubbles = [],
+    metrics = []
+  } = conf || {};
+
+  const text = dark ? 'text-zinc-100' : 'text-zinc-900';
+  const sub = dark ? 'text-zinc-400' : 'text-zinc-500';
+  const hair = dark ? 'border-zinc-800' : 'border-zinc-200';
+  const surface = dark ? 'bg-[#0B0F0D]' : 'bg-white';
+  const panel = dark ? 'border-zinc-800 bg-zinc-900/70' : 'border-zinc-200 bg-zinc-50';
+  const chip = dark ? 'bg-zinc-800 text-zinc-300' : 'bg-zinc-100 text-zinc-600';
+
+  return (
+    <div
+      dir={rtl ? 'rtl' : 'ltr'}
+      className={`flex h-full w-full select-none flex-col overflow-hidden font-sans ${surface} ${text}`}
+    >
+      {/* Window chrome */}
+      <div className={`flex shrink-0 items-center gap-1.5 border-b px-3 py-2 ${hair}`}>
+        <span className="h-2 w-2 rounded-full bg-[#E02E16]" />
+        <span className="h-2 w-2 rounded-full bg-[#E6C989]" />
+        <span className="h-2 w-2 rounded-full bg-[#2E8B62]" />
+        <span className={`mx-2 truncate text-[10px] font-semibold ${sub}`}>{title}</span>
+        {badge && (
+          <span
+            className="ms-auto shrink-0 rounded-full px-2 py-[2px] text-[9px] font-bold text-white"
+            style={{ backgroundColor: accent }}
+          >
+            {badge}
+          </span>
+        )}
+      </div>
+
+      <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
+        {heading && <div className="text-[13px] font-extrabold leading-tight">{heading}</div>}
+
+        {kind === 'results' && (
+          <div className="flex flex-col gap-1.5 overflow-hidden">
+            {rows.map((r, i) => (
+              <div key={i} className={`flex items-center gap-2 rounded-lg border px-2.5 py-1.5 ${panel}`}>
+                <span className="h-5 w-5 shrink-0 rounded" style={{ backgroundColor: accent, opacity: 0.85 }} />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-[10px] font-bold">{r.t}</span>
+                  <span className={`block truncate text-[9px] ${sub}`}>{r.s}</span>
+                </span>
+                <span className={`shrink-0 rounded px-1.5 py-[1px] text-[8px] font-semibold ${chip}`}>{r.tag}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {kind === 'domains' && (
+          <div className="grid flex-1 grid-cols-3 gap-1.5 overflow-hidden">
+            {tiles.map((t, i) => (
+              <div key={i} className={`flex flex-col items-center justify-center gap-1 rounded-lg border p-1.5 text-center ${panel}`}>
+                <span
+                  className="flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-black text-white"
+                  style={{ backgroundColor: accent }}
+                >
+                  {i + 1}
+                </span>
+                <span className="text-[9px] font-semibold leading-tight">{t}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {kind === 'article' && (
+          <div className={`flex-1 overflow-hidden rounded-lg border p-3 ${panel}`}>
+            <div className="mb-2 text-[11px] font-black" style={{ color: accent }}>
+              {conf.articleNo}
+            </div>
+            <div className="space-y-1.5">
+              {lines.map((w, i) => (
+                <div
+                  key={i}
+                  className={`h-[6px] rounded-full ${dark ? 'bg-zinc-800' : 'bg-zinc-200'}`}
+                  style={{ width: w }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {kind === 'tiers' && (
+          <div className="grid flex-1 grid-cols-3 gap-2">
+            {tiers.map((t, i) => (
+              <div
+                key={i}
+                className={`flex flex-col rounded-xl border p-2.5 ${i === 1 ? 'bg-white' : panel}`}
+                style={i === 1 ? { borderColor: accent } : undefined}
+              >
+                <div className={`text-[9px] font-bold uppercase tracking-wide ${sub}`}>{t.name}</div>
+                <div className="mt-0.5 text-[15px] font-black">{t.price}</div>
+                <div className="mt-1.5 flex-1 space-y-1">
+                  {t.feats.map((f, j) => (
+                    <div key={j} className={`flex items-center gap-1 text-[8.5px] ${sub}`}>
+                      <span className="h-1 w-1 shrink-0 rounded-full" style={{ backgroundColor: accent }} />
+                      {f}
+                    </div>
+                  ))}
+                </div>
+                <div
+                  className="mt-2 rounded-md py-1 text-center text-[9px] font-bold text-white"
+                  style={{ backgroundColor: i === 1 ? accent : '#a1a1aa' }}
+                >
+                  {t.cta}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {kind === 'workspace' && (
+          <div className="flex flex-1 flex-col gap-2">
+            <div className={`flex flex-1 flex-col items-center justify-center rounded-xl border border-dashed ${hair} ${panel}`}>
+              <span
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-white"
+                style={{ backgroundColor: accent }}
+              >
+                <FileDown className="h-4 w-4" />
+              </span>
+              <span className="mt-2 text-[10px] font-bold">{conf.dropLabel}</span>
+              <span className={`mt-0.5 text-[9px] ${sub}`}>{conf.dropHint}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {metrics.map((m, i) => (
+                <div key={i} className={`flex-1 rounded-lg border p-1.5 text-center ${panel}`}>
+                  <div className="text-[12px] font-black" style={{ color: accent }}>
+                    {m.v}
+                  </div>
+                  <div className={`text-[8px] ${sub}`}>{m.k}</div>
+                </div>
+              ))}
+              <div
+                className="shrink-0 rounded-lg px-3 py-2 text-[10px] font-bold text-white"
+                style={{ backgroundColor: accent }}
+              >
+                {conf.action}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {kind === 'agents' && (
+          <div className="flex flex-1 flex-col gap-1.5 overflow-hidden">
+            {rows.map((r, i) => (
+              <div key={i} className={`flex items-center gap-2 rounded-lg border px-2.5 py-1.5 ${panel}`}>
+                <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: accent }} />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-[10px] font-bold">{r.t}</span>
+                  <span className={`block truncate text-[9px] ${sub}`}>{r.s}</span>
+                </span>
+                <span
+                  className="shrink-0 rounded-full px-1.5 py-[1px] text-[8px] font-black text-white"
+                  style={{ backgroundColor: accent }}
+                >
+                  {r.tag}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {kind === 'chat' && (
+          <div className="flex flex-1 flex-col justify-end gap-2 overflow-hidden">
+            {bubbles.map((b, i) => (
+              <div
+                key={i}
+                className={`max-w-[78%] rounded-2xl px-2.5 py-1.5 text-[10px] leading-snug ${
+                  b.me ? 'self-end text-white' : `self-start border ${panel}`
+                }`}
+                style={b.me ? { backgroundColor: accent } : undefined}
+              >
+                {b.t}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {kind === 'log' && (
+          <div className="flex-1 overflow-hidden rounded-lg border border-zinc-800 bg-[#070A09] p-2.5 font-mono text-[9px] leading-relaxed">
+            {lines.map((l, i) => (
+              <div key={i} className="text-zinc-400">
+                <span className="text-[#2E8B62]">
+                  [{String(i * 3 + 12).padStart(2, '0')}:04:{String(i * 7 + 11).padStart(2, '0')}]
+                </span>{' '}
+                {l}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// ============================================================================
+// PIXEL-FAITHFUL RENDERER FOR EACH OF THE FRAMES (3 EXCLUSIVE PROJECTS)
 // ============================================================================
 const WorkFrameContent = ({ frame, isInteractive }) => {
   const [allQuery, setAllQuery] = useState('');
@@ -1442,6 +1896,17 @@ const WorkFrameContent = ({ frame, isInteractive }) => {
   }
 
   // --------------------------------------------------------------------------
+  // PARAMETERISED PROJECT SCREENS
+  // Every `mini` frame renders through one shared archetype component, so new
+  // corridor frames are added as config rather than new bespoke JSX.
+  // This branch MUST stay above the fallback return at the end of this
+  // function, or those frames would silently render the MCP screen instead.
+  // --------------------------------------------------------------------------
+  if (frame.mini) {
+    return <MiniScreen conf={frame.conf} />;
+  }
+
+  // --------------------------------------------------------------------------
   // FRAME 6: IDRISSCLAW — MCP & ACTIVE LEGAL AGENTS ORCHESTRATOR
   // --------------------------------------------------------------------------
   return (
@@ -1763,6 +2228,40 @@ export default function App() {
     []
   );
 
+  // ---------------------------------------------------------------------------
+  // 3D CORRIDOR GEOMETRY
+  //
+  // Every frame is positioned at its OWN depth on its wall rather than sitting
+  // on one flat plane. The browser's `perspective` then shrinks and converges
+  // each frame toward the vanishing point for free — that stagger is what makes
+  // the row read as a corridor you are standing inside, instead of two placards.
+  // ---------------------------------------------------------------------------
+  const CORRIDOR = {
+    perspective: 1200,
+    frameW: 640,
+    frameH: 430,
+    // Large enough that the NEAREST frame runs off the screen edge — that
+    // partial occlusion is what makes the viewer feel inside the corridor
+    // rather than looking at a row of cards.
+    wallX: 820,
+    // Each frame is rotated `angle` degrees, so it occupies frameW*sin(angle)
+    // of z-depth. depthStep MUST exceed that or consecutive frames intersect
+    // in 3D and smear into each other instead of receding.
+    depthStep: 430,
+    angle: 30, // degrees each frame turns inward toward the viewer
+    fade: 0.06, // opacity falloff with depth
+    vanishZ: 3550 // where the centre badge sits, beyond the last frame
+  };
+
+  // Flattened, side-tagged walk order so both walls share one render path.
+  const corridorFrames = useMemo(
+    () => [
+      ...leftWallFrames.map((frame, index) => ({ frame, index, side: -1 })),
+      ...rightWallFrames.map((frame, index) => ({ frame, index, side: 1 }))
+    ],
+    [leftWallFrames, rightWallFrames]
+  );
+
   const october2026Cells = useMemo(() => {
     const leadingBlanks = [null, null, null, null];
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -1915,53 +2414,54 @@ export default function App() {
             dragStartRef.current = { x: e.clientX, y: e.clientY };
           }}
           className="relative flex h-full w-full items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing"
-          style={{ perspective: '1350px' }}
+          style={{ perspective: `${CORRIDOR.perspective}px`, perspectiveOrigin: '50% 50%' }}
         >
+          {/* Floor and ceiling shading — sells the tunnel volume. */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[30%] bg-gradient-to-b from-[#e4e4e7] via-[#f1f1f2]/70 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-[#ddddE1] via-[#efeff0]/70 to-transparent" />
+
           <div
-            className="relative flex h-full w-full items-center justify-between px-2 sm:px-8 transition-transform duration-200 ease-out"
+            className="relative h-full w-full transition-transform duration-200 ease-out"
             style={{
               transformStyle: 'preserve-3d',
               transform: `rotateY(${cameraDrag.x}deg) rotateX(${-cameraDrag.y}deg)`
             }}
           >
-            {/* LEFT WALL OF PROJECT FRAMES (3 Frames: Algeria Law Library x2 + PDF Lawyer Auth) */}
-            <div
-              className="flex items-center gap-6 sm:gap-8 origin-left pl-2 sm:pl-6"
-              style={{
-                transformStyle: 'preserve-3d',
-                transform: 'rotateY(40deg) translateZ(-30px)'
-              }}
-            >
-              {leftWallFrames.map((frame, i) => {
-                const globalIndex = WORKS_FRAMES.findIndex((f) => f.id === frame.id);
-                const scaleHeights = [
-                  'h-[350px] w-[490px]',
-                  'h-[275px] w-[385px]',
-                  'h-[210px] w-[300px]'
-                ];
-                return (
-                  <div
-                    key={frame.id}
-                    onClick={() => {
-                      setActiveWorkIndex(globalIndex);
-                      setWorksView('stepped');
-                      setShowHowItWorks(false);
-                    }}
-                    className={`group relative cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:ring-2 hover:ring-[#0099FF] ${scaleHeights[i]}`}
-                  >
-                    <div className="mb-1.5 font-sans text-[11px] font-medium text-zinc-400 group-hover:text-[#0099FF] transition truncate">
-                      {frame.shortLabel}
-                    </div>
-                    <div className="h-full w-full overflow-hidden rounded-sm border border-zinc-200/90 bg-white shadow-lg">
-                      <WorkFrameContent frame={frame} isInteractive={false} />
-                    </div>
-                    <div className="mt-1.5 text-[10px] font-medium text-zinc-400 opacity-0 group-hover:opacity-100 transition">
-                      Click to inspect ↗
-                    </div>
+            {/* CORRIDOR WALLS — each frame recedes one step further into z */}
+            {corridorFrames.map(({ frame, index: i, side }) => {
+              const globalIndex = WORKS_FRAMES.findIndex((f) => f.id === frame.id);
+              return (
+                <div
+                  key={frame.id}
+                  onClick={() => {
+                    setActiveWorkIndex(globalIndex);
+                    setWorksView('stepped');
+                    setShowHowItWorks(false);
+                  }}
+                  className="group absolute left-1/2 top-1/2 cursor-pointer"
+                  style={{
+                    width: `${CORRIDOR.frameW}px`,
+                    height: `${CORRIDOR.frameH}px`,
+                    marginLeft: `${-CORRIDOR.frameW / 2}px`,
+                    marginTop: `${-CORRIDOR.frameH / 2}px`,
+                    transformStyle: 'preserve-3d',
+                    transform: `translate3d(${side * CORRIDOR.wallX}px, 0px, ${-i * CORRIDOR.depthStep}px) rotateY(${side * CORRIDOR.angle}deg)`,
+                    opacity: Math.max(0.32, 1 - i * CORRIDOR.fade),
+                    zIndex: 200 - i
+                  }}
+                >
+                  <div className="absolute -top-6 left-0 w-full truncate font-sans text-[11px] font-medium text-zinc-400 transition group-hover:text-[#0099FF]">
+                    {frame.shortLabel}
                   </div>
-                );
-              })}
-            </div>
+                  <div className="h-full w-full overflow-hidden rounded-sm border border-zinc-200/90 bg-white shadow-xl transition group-hover:ring-2 group-hover:ring-[#0099FF]">
+                    <WorkFrameContent frame={frame} isInteractive={false} />
+                  </div>
+                  <div className="absolute -bottom-6 left-0 text-[10px] font-medium text-[#0099FF] opacity-0 transition group-hover:opacity-100">
+                    Click to inspect ↗
+                  </div>
+                </div>
+              );
+            })}
 
             {/* CENTER VANISHING POINT FOCAL CARD (3 Custom Logos Badge) */}
             <div
@@ -1970,9 +2470,17 @@ export default function App() {
                 setWorksView('stepped');
                 setShowHowItWorks(false);
               }}
-              className="pointer-events-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer group"
+              className="group absolute left-1/2 top-1/2 cursor-pointer"
+              style={{
+                width: '150px',
+                height: '84px',
+                marginLeft: '-75px',
+                marginTop: '-42px',
+                transformStyle: 'preserve-3d',
+                transform: `translate3d(0px, 0px, ${-CORRIDOR.vanishZ}px)`
+              }}
             >
-              <div className="h-[78px] w-[142px] overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:border-[#0099FF] flex flex-col items-center justify-center p-2">
+              <div className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-zinc-200 bg-white p-2 shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:border-[#0099FF]">
                 <div className="flex items-center gap-2">
                   <AlgeriaLawLogo className="h-6 w-6" />
                   <PdfLawyerLogo className="h-6 w-6" />
@@ -1982,45 +2490,6 @@ export default function App() {
                   3 FLAGSHIP PLATFORMS
                 </span>
               </div>
-            </div>
-
-            {/* RIGHT WALL OF PROJECT FRAMES (3 Frames: PDF Lawyer Tools + IdrissClaw x2) */}
-            <div
-              className="flex items-center gap-6 sm:gap-8 origin-right pr-2 sm:pr-6"
-              style={{
-                transformStyle: 'preserve-3d',
-                transform: 'rotateY(-40deg) translateZ(-30px)'
-              }}
-            >
-              {rightWallFrames.map((frame, i) => {
-                const globalIndex = WORKS_FRAMES.findIndex((f) => f.id === frame.id);
-                const scaleHeights = [
-                  'h-[210px] w-[300px]',
-                  'h-[275px] w-[385px]',
-                  'h-[350px] w-[490px]'
-                ];
-                return (
-                  <div
-                    key={frame.id}
-                    onClick={() => {
-                      setActiveWorkIndex(globalIndex);
-                      setWorksView('stepped');
-                      setShowHowItWorks(false);
-                    }}
-                    className={`group relative cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:ring-2 hover:ring-[#0099FF] ${scaleHeights[i]}`}
-                  >
-                    <div className="mb-1.5 font-sans text-[11px] font-medium text-zinc-400 group-hover:text-[#0099FF] transition truncate">
-                      {frame.shortLabel}
-                    </div>
-                    <div className="h-full w-full overflow-hidden rounded-sm border border-zinc-200/90 bg-white shadow-lg">
-                      <WorkFrameContent frame={frame} isInteractive={false} />
-                    </div>
-                    <div className="mt-1.5 text-[10px] font-medium text-zinc-400 opacity-0 group-hover:opacity-100 transition">
-                      Click to inspect ↗
-                    </div>
-                  </div>
-                );
-              })}
             </div>
           </div>
 

@@ -6,6 +6,44 @@ DNS for `algerialawlibrary.com` lives on **Cloudflare**, and the apex already se
 existing site. You are adding **one new record** for a subdomain — nothing that already exists
 is modified, and your main site cannot be affected by this.
 
+---
+
+## Current status (as of 14 Oct 2026)
+
+The deployment is **live**. Everything below was verified from outside GitHub/Cloudflare:
+
+| Item | State |
+| --- | --- |
+| Repo `thegamern94-art/portfolio` | Created, public, `main` pushed |
+| Pages source | **GitHub Actions** (`build_type: workflow`) |
+| Custom domain | `idriss.algerialawlibrary.com` — `protected_domain_state: verified` |
+| First deploy | ✅ build 13s / deploy 50s — run `38558912745` |
+| Cloudflare CNAME | ✅ added, `proxied: false` (grey cloud) — correct |
+| Domain verification | ✅ `TXT _github-pages-challenge-thegamern94-art.idriss…` added |
+| DNS (public resolvers) | ✅ resolves via 1.1.1.1 and 8.8.8.8 to GitHub Pages IPs |
+| Site over HTTP | ✅ `200` + all assets `200` (JS 315,314 B matches local build) |
+| HTTPS certificate | ⏳ pending — GitHub has not issued the custom-domain cert yet |
+| **Enforce HTTPS** | ⏳ **the one remaining action** — needs the cert first |
+
+`thegamern94-art.github.io/portfolio/` now **redirects** to the custom domain, so that URL is no
+longer the canonical way in.
+
+**Do not enable Enforce HTTPS before the certificate exists.** Doing so redirects `http://` to an
+`https://` endpoint whose certificate does not yet cover the hostname, which would break the site
+for visitors until the cert lands. Wait until GitHub shows the certificate as ready.
+
+Check cert readiness with (DNS bypassed, so it works even if your local resolver is stale):
+
+```powershell
+curl.exe -sS -o NUL -w "%{http_code}`n" --resolve "idriss.algerialawlibrary.com:443:185.199.108.153" https://idriss.algerialawlibrary.com/
+```
+
+`000` = cert not issued yet. `200` = ready, safe to enforce HTTPS.
+
+> **Note on the Cloudflare API connector:** it has read access, but a write returned
+> `10000: Authentication error`, so the record was added through the dashboard. The zone was
+> re-read immediately afterwards and confirmed unchanged — no partial write.
+
 > **Do the steps in order.** Steps 4 and 5 are deliberately sequenced: on GitHub's own
 > recommendation the custom domain is registered in GitHub **before** the DNS record exists.
 > Reversing them can allow someone else to serve a site on a subdomain of your domain.
