@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+/*
+  Tailwind v4 theme tokens.
+
+  The portfolio relies on Tailwind v4-only utilities (shadow-2xs, backdrop-blur-xs,
+  py-0.2), so this project must run on Tailwind v4 — not v3.
+
+  Font stacks include Arabic-capable system fonts because large parts of the UI
+  (Algeria Law Library, محامي PDF / PDF Lawyer) render RTL Arabic copy.
+*/
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    'Noto Sans Arabic', 'Noto Naskh Arabic', 'Segoe UI Historic', Arial, sans-serif;
+  --font-mono:
+    ui-monospace, 'SFMono-Regular', 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* Matches the portfolio's own outer shell (bg-[#FAFAFA]) so there is no
+     visible letterboxing or colour flash before React mounts. */
+  background-color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* The app manages its own layout; keep the page from rubber-banding on mobile. */
+html {
+  -webkit-text-size-adjust: 100%;
+}
