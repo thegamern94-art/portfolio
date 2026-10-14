@@ -138,27 +138,41 @@ Also added floor/ceiling gradient planes, an opacity falloff with depth, and mov
 to the vanishing point. `wallX: 820` is deliberate: it pushes the nearest frame **off the screen
 edge**, which is what makes the viewer feel inside the corridor.
 
-## Frame count (Gap 2)
+## Frame count (Gap 2) — revised
 
-**6 → 16.** Rather than hand-building ten more bespoke mockups, new frames render through one
-parameterised `MiniScreen` component with eight archetypes (`results`, `domains`, `article`,
-`tiers`, `workspace`, `agents`, `chat`, `log`), so each new screen is a ~15-line config object.
+First pass went **6 → 16**. That was too many: the extra ten were filler screens nobody needs to
+see, and the corridor read as clutter. Final state is **6 → 3 — one main screen per platform.**
 
-The six originals stay bespoke and sit nearest on each wall, where detail is actually readable.
+The intermediate version lived in commits `22ccdbc` and `21b2f97` if it is ever wanted back.
 
-| Wall | Frames (nearest → deepest) |
-| --- | --- |
-| Left | ALL Hero · ALL AI RAG · ALL JORA Search · ALL Legal Domains · ALL Article 119 · ALL Pricing · محامي PDF Login · محامي PDF Compress |
-| Right | IdrissClaw Agent OS · IdrissClaw MCP · IdrissClaw Agents · IdrissClaw Chat · MCP Log · محامي PDF Tools Grid · محامي PDF Redact · محامي PDF Merge & Split |
+| Wall | Position | Frame |
+| --- | --- | --- |
+| Left | nearest | Algeria Law Library / Hero |
+| Left | deeper | محامي PDF / Tools Grid |
+| Right | nearest | IdrissClaw / Agent OS |
+
+The depth-staggered geometry from Gap 1 is unchanged — it still recedes correctly, just with three
+frames instead of sixteen. `MiniScreen` and its eight archetypes were deleted along with the extra
+frames; they existed only to serve them.
 
 ## Verified
 
-- `npm run build` passes (no lint/test harness exists in this repo, so build is the only check).
-- Live deployment, visually confirmed in a real browser: all 16 frames render; counter reads `/ 16`.
+- `npm run build` passes. No lint or test harness exists in this repo, so build is the only check
+  available.
+- Live deployment confirmed with a real browser and a headless capture: the corridor renders
+  exactly three frames (three `Click to inspect` affordances in the live DOM), counter reads `/ 3`.
 - Stepped view confirmed: Figma selection box, label above, `algerialawlibrary.com ↗` / `LinkedIn ↗`
-  below, counter `1 / 16`, `Esc • Back to 3D Corridor`.
-- About section re-checked after the change — 4 cards, pills, counter `1 / 4`. No regression.
-- Corridor DOM measured at 438 divs / 1,260 elements. Bundle 315 kB → 327 kB (94.8 kB gzipped).
+  below, `Esc • Back to 3D Corridor`.
+- About and Contact both re-checked after the change — 4 cards each, counters `1 / 4`. No regression.
+- Live DOM down to 663 elements (from 1,260 at 16 frames). Bundle 315 kB → 314.5 kB, i.e. back to
+  its original weight.
+
+## Note on leftover code
+
+The bespoke render branches for `all-assistant`, `pdf-auth` and `idrissclaw-mcp` are still in the
+file but no longer referenced by `WORKS_FRAMES` — roughly 480 lines of dead JSX. Kept deliberately
+so any of those screens can be restored by re-adding one array entry. They can be stripped on
+request.
 
 ## Still open — Gap 3
 
