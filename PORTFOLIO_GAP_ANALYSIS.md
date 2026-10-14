@@ -109,3 +109,59 @@ blocked on you supplying screenshots.
 - Your Arabic/RTL handling. The reference is English-only; you carry two languages and full RTL in
   the same component, including a bilingual tools grid. That is *harder* than what the reference
   does, and it survives the round trip to a live site.
+
+---
+
+# Update — Gaps 1 and 2 shipped (14 Oct 2026)
+
+## Corridor rebuilt (Gap 1)
+
+Before, all six frames sat on two flat planes at one identical depth:
+
+```jsx
+left  wall: rotateY(40deg)  translateZ(-30px)   // 3 frames, same z
+right wall: rotateY(-40deg) translateZ(-30px)   // 3 frames, same z
+```
+
+Now every frame carries its own 3D position, so `perspective` shrinks and converges each one
+individually toward the vanishing point:
+
+```jsx
+translate3d(side * 820px, 0px, -i * 430px) rotateY(side * 30deg)
+```
+
+**The geometry rule that matters:** a frame rotated by `angle` occupies `frameW * sin(angle)` of
+z-depth, so `depthStep` must exceed that or consecutive frames intersect in 3D and smear into one
+another. The first attempt used `depthStep: 250` against a 389px z-extent and did exactly that.
+
+Also added floor/ceiling gradient planes, an opacity falloff with depth, and moved the focal badge
+to the vanishing point. `wallX: 820` is deliberate: it pushes the nearest frame **off the screen
+edge**, which is what makes the viewer feel inside the corridor.
+
+## Frame count (Gap 2)
+
+**6 → 16.** Rather than hand-building ten more bespoke mockups, new frames render through one
+parameterised `MiniScreen` component with eight archetypes (`results`, `domains`, `article`,
+`tiers`, `workspace`, `agents`, `chat`, `log`), so each new screen is a ~15-line config object.
+
+The six originals stay bespoke and sit nearest on each wall, where detail is actually readable.
+
+| Wall | Frames (nearest → deepest) |
+| --- | --- |
+| Left | ALL Hero · ALL AI RAG · ALL JORA Search · ALL Legal Domains · ALL Article 119 · ALL Pricing · محامي PDF Login · محامي PDF Compress |
+| Right | IdrissClaw Agent OS · IdrissClaw MCP · IdrissClaw Agents · IdrissClaw Chat · MCP Log · محامي PDF Tools Grid · محامي PDF Redact · محامي PDF Merge & Split |
+
+## Verified
+
+- `npm run build` passes (no lint/test harness exists in this repo, so build is the only check).
+- Live deployment, visually confirmed in a real browser: all 16 frames render; counter reads `/ 16`.
+- Stepped view confirmed: Figma selection box, label above, `algerialawlibrary.com ↗` / `LinkedIn ↗`
+  below, counter `1 / 16`, `Esc • Back to 3D Corridor`.
+- About section re-checked after the change — 4 cards, pills, counter `1 / 4`. No regression.
+- Corridor DOM measured at 438 divs / 1,260 elements. Bundle 315 kB → 327 kB (94.8 kB gzipped).
+
+## Still open — Gap 3
+
+Frame artwork is still vector reconstruction, not real screenshots. Structure and depth now match
+the reference; photographic richness does not. Supply screenshots of the three products and this
+closes too — see the note above.
