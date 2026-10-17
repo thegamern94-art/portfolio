@@ -1513,6 +1513,16 @@ export default function App() {
   // Primary Mode: 'intro' | 'works' | 'about' | 'contact'
   const [mode, setMode] = useState('intro');
 
+  // Track viewport width so the 3D corridor can scale proportionally to it.
+  const [viewportW, setViewportW] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1722
+  );
+  useEffect(() => {
+    const onResize = () => setViewportW(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   // Intro Typing Sequence State (00:00 - 00:03 in video)
   const fullIntroName = 'Idriss Zaghez';
   const fullIntroRole = 'Lawyer & Legal Tech Architect';
@@ -1757,6 +1767,9 @@ export default function App() {
   // each frame toward the vanishing point for free — that stagger is what makes
   // the row read as a corridor you are standing inside, instead of two placards.
   // ---------------------------------------------------------------------------
+  // Frames are authored at a fixed 640x430 design size so their inner UI stays
+  // correctly proportioned. The whole corridor is then scaled to the viewport
+  // by `corridorScale`, which keeps the composition identical at any width.
   const CORRIDOR = {
     perspective: 1200,
     frameW: 640,
@@ -1773,6 +1786,9 @@ export default function App() {
     fade: 0.06, // opacity falloff with depth
     vanishZ: 3550 // where the centre badge sits, beyond the last frame
   };
+
+  // 1722 is the width the composition was tuned at.
+  const corridorScale = Math.min(1.3, Math.max(0.16, viewportW / 1722));
 
   // Flattened, side-tagged walk order so both walls share one render path.
   const corridorFrames = useMemo(
@@ -1935,7 +1951,7 @@ export default function App() {
             dragStartRef.current = { x: e.clientX, y: e.clientY };
           }}
           className="relative flex h-full w-full items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing"
-          style={{ perspective: `${CORRIDOR.perspective}px`, perspectiveOrigin: '50% 50%' }}
+          style={{ perspective: `${CORRIDOR.perspective * corridorScale}px`, perspectiveOrigin: '50% 50%' }}
         >
           {/* Floor and ceiling shading — sells the tunnel volume. */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[30%] bg-gradient-to-b from-[#e4e4e7] via-[#f1f1f2]/70 to-transparent" />
@@ -1945,7 +1961,7 @@ export default function App() {
             className="relative h-full w-full transition-transform duration-200 ease-out"
             style={{
               transformStyle: 'preserve-3d',
-              transform: `rotateY(${cameraDrag.x}deg) rotateX(${-cameraDrag.y}deg)`
+              transform: `scale(${corridorScale}) rotateY(${cameraDrag.x}deg) rotateX(${-cameraDrag.y}deg)`
             }}
           >
             {/* CORRIDOR WALLS — each frame recedes one step further into z */}
