@@ -521,9 +521,9 @@ const IdrissPortraitArtwork = ({ customPhotoUrl, isMonochrome }) => {
 // ============================================================================
 const WORKS_FRAMES = [
   // ==========================================================================
-  // ONE SCREEN PER PLATFORM — the main screen for each of the three products.
-  // Array order within a wall IS corridor depth order (nearest first), so the
-  // first entry on each wall is the biggest and closest frame.
+  // ALGERIA LAW LIBRARY ONLY — one bespoke hero frame plus two real product
+  // screenshots. Array order within a wall IS corridor depth order (nearest
+  // first), so the first entry on each wall is the biggest, closest frame.
   // ==========================================================================
   {
     id: 'all-hero',
@@ -534,20 +534,24 @@ const WORKS_FRAMES = [
     linkText: 'algerialawlibrary.com'
   },
   {
-    id: 'pdf-tools',
-    label: 'PDF Lawyer PRO / 20 أداة محلية للعمل القانوني',
-    shortLabel: 'محامي PDF / Tools Grid',
+    id: 'all-search',
+    label: 'Algeria Law Library / البحث المتقدم',
+    shortLabel: 'Algeria Law Library / Advanced Search',
     wall: 'left',
-    url: LINKEDIN_URL,
-    linkText: 'محامي PDF PRO'
+    url: ALGERIA_LAW_URL,
+    linkText: 'algerialawlibrary.com',
+    shot: '/frames/all-search.png',
+    shotCaption: 'البحث المتقدم — 10.550 نتيجة عبر القوانين والمواد والقرارات'
   },
   {
-    id: 'idrissclaw-os',
-    label: 'IdrissClaw / The AI Agent OS',
-    shortLabel: 'IdrissClaw / Agent OS',
+    id: 'all-assistant-live',
+    label: 'Algeria Law Library / المساعد القانوني الذكي',
+    shortLabel: 'Algeria Law Library / AI Assistant',
     wall: 'right',
-    url: LINKEDIN_URL,
-    linkText: 'IdrissClaw Desktop'
+    url: ALGERIA_LAW_URL,
+    linkText: 'algerialawlibrary.com',
+    shot: '/frames/all-assistant.png',
+    shotCaption: 'المساعد القانوني — إجابات مسندة إلى المواد والقرارات'
   }
 ];
 
@@ -643,13 +647,37 @@ const MultiplayerCursor = ({ x, y, label, color, isOrangeClient = false }) => {
 };
 
 // ============================================================================
-// PIXEL-FAITHFUL RENDERER FOR EACH OF THE FRAMES (3 EXCLUSIVE PROJECTS)
+// REAL SCREENSHOT FRAME
+// Used for frames backed by an actual product capture. These screenshots are
+// much wider than the 640x430 frame, so they are top-aligned and set to full
+// width rather than cropped — cropping would cut the outer UI columns away.
+// The leftover height carries a caption strip so the space reads as design.
+// ============================================================================
+const ScreenshotFrame = ({ src, caption }) => (
+  <div className="flex h-full w-full select-none flex-col overflow-hidden bg-white">
+    <div className="w-full shrink-0 border-b border-zinc-200/70 bg-zinc-50">
+      <img src={src} alt={caption} className="block h-auto w-full" draggable={false} />
+    </div>
+    <div className="flex min-h-0 flex-1 items-center justify-between px-3">
+      <span className="truncate pe-2 text-[10px] font-semibold text-zinc-500">{caption}</span>
+      <span className="shrink-0 font-mono text-[9px] text-zinc-300">algerialawlibrary.com</span>
+    </div>
+  </div>
+);
+
+// ============================================================================
+// PIXEL-FAITHFUL RENDERER FOR EACH FRAME
 // ============================================================================
 const WorkFrameContent = ({ frame, isInteractive }) => {
   const [allQuery, setAllQuery] = useState('');
   const [selectedPdfTool, setSelectedPdfTool] = useState('ضغط PDF');
   const [clawPrompt, setClawPrompt] = useState('');
   const [activeModel, setActiveModel] = useState('GPT-4o');
+
+  // Real product captures take priority over every bespoke mockup below.
+  if (frame.shot) {
+    return <ScreenshotFrame src={frame.shot} caption={frame.shotCaption} />;
+  }
 
   // --------------------------------------------------------------------------
   // FRAME 1: ALGERIA LAW LIBRARY (`image_5afefd.png` + `logo.png` EXACT REPLICA)
@@ -1774,10 +1802,9 @@ export default function App() {
     perspective: 1200,
     frameW: 640,
     frameH: 430,
-    // Large enough that the NEAREST frame runs off the screen edge — that
-    // partial occlusion is what makes the viewer feel inside the corridor
-    // rather than looking at a row of cards.
-    wallX: 820,
+    // Large enough that the NEAREST frame still runs off the screen edge, but
+    // not so large that a lone frame on one wall is unreadable.
+    wallX: 690,
     // Each frame is rotated `angle` degrees, so it occupies frameW*sin(angle)
     // of z-depth. depthStep MUST exceed that or consecutive frames intersect
     // in 3D and smear into each other instead of receding.
@@ -2018,13 +2045,12 @@ export default function App() {
               }}
             >
               <div className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-zinc-200 bg-white p-2 shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:border-[#0099FF]">
-                <div className="flex items-center gap-2">
-                  <AlgeriaLawLogo className="h-6 w-6" />
-                  <PdfLawyerLogo className="h-6 w-6" />
-                  <IdrissClawMascot className="h-6 w-6" />
-                </div>
-                <span className="mt-1 font-mono text-[8px] font-bold uppercase tracking-wider text-zinc-400">
-                  3 FLAGSHIP PLATFORMS
+                <AlgeriaLawLogo className="h-7 w-7" />
+                <span className="mt-1 font-mono text-[8px] font-bold uppercase tracking-wider text-zinc-500">
+                  ALGERIA LAW LIBRARY
+                </span>
+                <span className="font-mono text-[7px] uppercase tracking-wider text-zinc-400">
+                  algerialawlibrary.com
                 </span>
               </div>
             </div>
